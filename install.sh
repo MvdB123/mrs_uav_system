@@ -56,15 +56,7 @@ if (( $(echo "$safe_rate_of_memory > $total_available_memory" |bc -l) )); then
   [ -z "$GITHUB_CI" ] && read
 fi
 
-[ -z "$GIT_PATH" ] && GIT_PATH=~/git
-
-## | ----------------------- venv ----------------------------- |
-
-python3 -m venv venv
-source ./venv/bin/activate
-python -m pip install virtualenv
-python -m virtualenv venv2
-source ./venv2/bin/activate
+[ -z "$GIT_PATH" ] && GIT_PATH=~/projects/mrs_repos
 
 ## | ----------------------- install ROS ---------------------- |
 

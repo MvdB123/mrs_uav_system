@@ -9,22 +9,12 @@ echo "$0: installing Gitman"
 
 distro=`lsb_release -r | awk '{ print $2 }'`
 
-source ~/projects/mrs_repos/mrs_uav_system/venv/bin/activate
-source ~/projects/mrs_repos/mrs_uav_system/venv2/bin/activate
 if [ "$distro" = "18.04" ]; then
-  python3 -m pip install \
-  pip\
-  setuptools\
-  
-  python -m pip install \ 
-  pip\
-  setuptools\
+  sudo apt-get -y install python-pip python3-pip python-setuptools python3-setuptools
 elif [ "$distro" = "20.04" ]; then
-  python3 -m pip install \
-  pip\
-  setuptools\
+  sudo apt-get -y install python3-pip python3-setuptools
 fi
 
 # Install Gitman python package 
-python3 -m pip install gitman
-# sudo -H pip3 install gitman
+sudo pip3 install gitman
+sudo -H pip3 install gitman
