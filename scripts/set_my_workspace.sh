@@ -9,9 +9,9 @@ trap 'echo "$0: \"${last_command}\" command failed with exit code $?"' ERR
 APP_PATH=`dirname "$0"`
 APP_PATH=`( cd "$APP_PATH" && pwd )`
 
-WORKSPACE_NAME=workspace
-WORKSPACE_PATH=~/$WORKSPACE_NAME
-MRS_WORKSPACE=~/mrs_workspace
+WORKSPACE_NAME=current_mrs_workspace
+WORKSPACE_PATH=~/workspaces/$WORKSPACE_NAME
+MRS_WORKSPACE=~/workspaces/mrs_workspace
 
 # create the folder structure
 mkdir -p $WORKSPACE_PATH/src
@@ -40,25 +40,25 @@ command catkin config --extend $MRS_WORKSPACE/devel
 [ ! -z "$GITHUB_CI" ] && command catkin profile set debug
 
 echo "$0: cloning example packages"
-cd ~/git
-[ ! -e example_ros_packages ] && git clone https://github.com/ctu-mrs/example_ros_packages
+cd ~/projects/mrs_repos
+[ ! -e example_ros_packages ] && git clone https://github.com/MvdB123/example_ros_packages.git
 cd example_ros_packages
 gitman install
 
 echo "$0: linking example packages to ~/workspace"
 cd $WORKSPACE_PATH/src
-ln -sf ~/git/example_ros_packages
+ln -sf ~/projects/mrs_repos/example_ros_packages
 
 echo "$0: building $WORKSPACE_PATH"
 cd $WORKSPACE_PATH
 [ -z "$GITHUB_CI" ] && command catkin build
 [ ! -z "$GITHUB_CI" ] && command catkin build --limit-status-rate 0.2 --summarize
 
-num=`cat ~/.bashrc | grep "$WORKSPACE_PATH" | wc -l`
+num=`cat ~/.bashrc_mrs | grep "$WORKSPACE_PATH" | wc -l`
 if [ "$num" -lt "1" ]; then
 
   # set bashrc
   echo "
-source $WORKSPACE_PATH/devel/setup.bash" >> ~/.bashrc
+source $WORKSPACE_PATH/devel/setup.bash" >> ~/.bashrc_mrs
 
 fi

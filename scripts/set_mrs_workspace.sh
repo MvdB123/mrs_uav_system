@@ -14,7 +14,7 @@ APP_PATH=`dirname "$0"`
 APP_PATH=`( cd "$APP_PATH" && pwd )`
 
 WORKSPACE_NAME=mrs_workspace
-WORKSPACE_PATH=~/$WORKSPACE_NAME
+WORKSPACE_PATH=~/workspaces/$WORKSPACE_NAME
 
 echo "$0: creating $WORKSPACE_PATH/src"
 mkdir -p $WORKSPACE_PATH/src
@@ -37,8 +37,8 @@ command catkin config --profile reldeb --cmake-args -DCMAKE_BUILD_TYPE=RelWithDe
 
 # link mrs repositories to the workspace
 cd src
-ln -sf ~/git/uav_core
-ln -sf ~/git/simulation
+ln -sf ~/projects/mrs_repos/uav_core
+ln -sf ~/projects/mrs_repos/simulation
 
 cd $WORKSPACE_PATH
 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -51,11 +51,11 @@ source /opt/ros/$ROS_DISTRO/setup.bash
 [ -z "$GITHUB_CI" ] && command catkin build -c --mem-limit 75%
 [ ! -z "$GITHUB_CI" ] && command catkin build --limit-status-rate 0.2 --summarize
 
-num=`cat ~/.bashrc | grep "$WORKSPACE_PATH" | wc -l`
+num=`cat ~/.bashrc_mrs | grep "$WORKSPACE_PATH" | wc -l`
 if [ "$num" -lt "1" ]; then
 
   # set bashrc
   echo "
-source $WORKSPACE_PATH/devel/setup.bash" >> ~/.bashrc
+source $WORKSPACE_PATH/devel/setup.bash" >> ~/.bashrc_mrs
 
 fi

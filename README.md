@@ -1,3 +1,14 @@
+# Intro to fork
+This is a fork of the MRS system repo to make the installation of the UAV system independant of my other ROS and bash environments on my laptop by change to the .sh files of many scripts involved in the installation of the MRS drone system.
+
+I have a ROS2 installation. No ROS1 installation. This does not automatically source any of the two when both are installed. TODO: adds an alias to the bashrc to point to .bashrc_mrs with all relevent aliasses etc. 
+
+I have changed the commands in "I have fresh Ubuntu install and want it quick and easy"
+
+1. Change the GIT_PATH variable to a folder where you want to clone all repos. I changed it to projects/mrs_repos.
+2. A venv for python3 and a venv for python2 is created in this folder. Change al instances of `~/projects/mrs_repos/mrs_uav_system/venv/bin/activate` and `~/projects/mrs_repos/mrs_uav_system/venv/bin/activate` to point to the correct directory.
+
+
 # Multi-robot Systems Group UAV system
 ![thumbnail](.fig/drone_collage.jpg)
 
@@ -123,16 +134,16 @@ You might be prompted a few times to confirm something by pressing enter:
 ```bash
 cd /tmp
 echo '
-GIT_PATH=~/git
+GIT_PATH=~/projects/mrs_repos
 mkdir -p $GIT_PATH
 cd $GIT_PATH
 sudo apt-get -y install git
-git clone https://github.com/ctu-mrs/mrs_uav_system
+git clone https://github.com/MvdB123/mrs_uav_system.git
 cd mrs_uav_system
 git checkout master
 git pull
 ./install.sh -g $GIT_PATH
-source ~/.bashrc' > clone.sh && source clone.sh
+source ~/.bashrc_mrs' > clone.sh && source clone.sh
 ```
 
 ### "I already have ROS and just want to peek in"

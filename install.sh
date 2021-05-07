@@ -58,6 +58,14 @@ fi
 
 [ -z "$GIT_PATH" ] && GIT_PATH=~/git
 
+## | ----------------------- venv ----------------------------- |
+
+python3 -m venv venv
+source ./venv/bin/activate
+python -m pip install virtualenv
+python -m virtualenv venv2
+source ./venv2/bin/activate
+
 ## | ----------------------- install ROS ---------------------- |
 
 bash $MY_PATH/dependencies/ros.sh
@@ -74,9 +82,9 @@ bash $MY_PATH/dependencies/gitman.sh
 
 cd "$GIT_PATH"
 
-[ ! -e "$GIT_PATH/uav_core" ] && git clone https://github.com/ctu-mrs/uav_core
-[ ! -e "$GIT_PATH/simulation" ] && git clone https://github.com/ctu-mrs/simulation
-[ ! -e "$GIT_PATH/example_ros_packages" ] && git clone https://github.com/ctu-mrs/example_ros_packages
+[ ! -e "$GIT_PATH/uav_core" ] && git clone https://github.com/MvdB123/uav_core.git
+[ ! -e "$GIT_PATH/simulation" ] && git clone https://github.com/MvdB123/simulation.git
+[ ! -e "$GIT_PATH/example_ros_packages" ] && git clone https://github.com/MvdB123/example_ros_packages.git
 
 ## | ------------------- installing uav_core ------------------ |
 
@@ -98,11 +106,11 @@ $MY_PATH/scripts/set_my_workspace.sh
 
 ## | ------- add workspaces to ROS_WORKSPACES in .bashrc ------ |
 
-num=`cat ~/.bashrc | grep "ROS_WORKSPACES" | wc -l`
+num=`cat ~/.bashrc_mrs | grep "ROS_WORKSPACES" | wc -l`
 if [ "$num" -lt "1" ]; then
 
   # set bashrc
   echo "
-export ROS_WORKSPACES=\"~/mrs_workspace ~/workspace\"" >> ~/.bashrc
+export ROS_WORKSPACES=\"~/workspaces/mrs_workspace ~/workspaces/current_mrs_workspace\"" >> ~/.bashrc_mrs
 
 fi

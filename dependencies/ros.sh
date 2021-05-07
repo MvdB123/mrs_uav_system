@@ -28,11 +28,10 @@ sudo apt-get -y update
 [ "$distro" = "18.04" ] && sudo apt-get -y install ros-melodic-desktop-full
 [ "$distro" = "20.04" ] && sudo apt-get -y install ros-noetic-desktop-full
 
-num=`cat ~/.bashrc | grep "/opt/ros/$ROS_DISTRO/setup.bash" | wc -l`
+num=`cat ~/.bashrc_mrs | grep "/opt/ros/$ROS_DISTRO/setup.bash" | wc -l`
 if [ "$num" -lt "1" ]; then
 
   # set bashrc
-  echo "
-source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+  echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc_mrs
 
 fi
