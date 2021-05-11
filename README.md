@@ -146,6 +146,11 @@ git pull
 source ~/.bashrc_mrs' > clone.sh && source clone.sh
 ```
 
+Then add to your bash rc the environment of the mrs setup.
+```bash
+source ~/.bashrc_mrs
+```
+
 ### "I already have ROS and just want to peek in"
 
 If you already have ROS installed and if you are fluent with *workspaces*, *.bashrc*, *catkin tools*, etc., feel free to clone our repositories individually.
